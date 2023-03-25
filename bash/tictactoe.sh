@@ -147,7 +147,9 @@ print_board() {
 is_position_available() {
 
     if [[ ${board[${1},${2}]} != 0 ]]; then
-        echo "Position is already taken"
+        if [[ $single_game == false || ($single_game && $ai_turn == false) ]]; then
+            echo "Position is already taken"
+        fi
         return 1
     fi
 
@@ -285,12 +287,16 @@ main_single_game() {
         fi
 
         if $ai_turn ; then 
-            row=$(($RANDOM % 3))
-            col=$(($RANDOM % 3))
 
-            if ! is_position_available ${row} ${col} ; then
-                continue
-            fi
+            while [ true ]
+            do
+                row=$(($RANDOM % 3))
+                col=$(($RANDOM % 3))
+
+                if is_position_available ${row} ${col} ; then
+                    break
+                fi
+            done
 
             ai_turn=false
         else
