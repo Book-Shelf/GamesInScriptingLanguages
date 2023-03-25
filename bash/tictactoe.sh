@@ -1,14 +1,18 @@
 #!/bin/bash
 declare -A board
+circle_move=true
+game_over=1
+move_remaining=9
 
-# initialize board
-for ((i=0;i<3;i++))
-do
-    for ((j=0;j<3;j++))
+initialize_board() {
+    for ((i=0;i<3;i++))
     do
-        board[${i},${j}]=0
+        for ((j=0;j<3;j++))
+        do
+            board[${i},${j}]=0
+        done
     done
-done
+}
 
 print_board() {
     for row in {0..2}
@@ -60,13 +64,40 @@ check_input_format() {
     return 0
 }
 
-# check_if_game_over() {
+check_if_game_over() {
+    player=""
 
-# }
+    if [[ $1 == 1 ]]; then
+        player="Cross"
+    else
+        player="Nought"
+    fi
 
-circle_move=true
+    for i in {0..2}
+    do
+        if [[ (${board[${i},0]} == $1 && ${board[${i},1]} == $1 && ${board[${i},2]} == $1) || (${board[0,${i}]} == $1 && ${board[1,${i}]} == $1 && ${board[2,${i}]} == $1) ]]; then
+            game_over=0
+            printf "Congratulations!\n%s player won!\n\n" ${player}
+            print_board
+        fi
+    done
 
-while [ true ]
+    if [[ (${board[0,0]} == $1 && ${board[1,1]} == $1 && ${board[2,2]} == $1) || (${board[2,0]} == $1 && ${board[1,1]} == $1 && ${board[0,2]} == $1) ]]; then
+        game_over=0
+        printf "Congratulations!\n%s player won!\n\n" ${player}
+        print_board
+    fi
+
+    if [[ ${move_remaining} == 0 && ${game_over} != 0 ]]; then
+        printf "GAME OVER\nIt is a tie!\n"
+        game_over=0
+        print_board
+    fi
+}
+
+initialize_board
+
+while [ ${game_over} -eq 1 ]
 do  
     print_board
 
@@ -76,15 +107,16 @@ do
         continue
     fi
 
+    move_remaining=$((move_remaining - 1))
+
     if ${circle_move} ; then
         board[${row},${col}]=2
         circle_move=false
+        check_if_game_over 2
     else
         board[${row},${col}]=1
         circle_move=true
+        check_if_game_over 1
     fi
 
-    
-
-    echo "bitch"
 done
