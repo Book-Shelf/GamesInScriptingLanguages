@@ -5,6 +5,8 @@ game_over=1
 move_remaining=9
 dir_path=$(dirname "$0")
 SAVE_FILE_NAME="save.txt"
+single_game=false
+ai_turn=false
 
 print_welcome_message() {
     clear
@@ -15,7 +17,8 @@ print_welcome_message() {
     printf "where 0 0 is left top corner and 2 2 is right bottom one.\n\n"
     printf "To save the game and leave type \"s\" instead of position.\n\n"
     printf "\tTo load saved game press l\n"
-    printf "\tTo start the game press enter\n\n"
+    printf "\tTo start the game player vs computer press c\n"
+    printf "\tTo start the game player vs player press enter\n"
 }
 
 initialize_board() {
@@ -48,6 +51,8 @@ save_game() {
 
     echo $circle_move >> $file_path
     echo $move_remaining >> $file_path
+    echo $single_game >> $file_path
+    echo $ai_turn >> $file_path 
 
     sleep 1
     echo "Saved the game"
@@ -65,11 +70,11 @@ load_game() {
         echo "There is no saved game to be found."
         sleep 1
         clear
-        printf "Starting the new game"
+        printf "Starting the new player vs player game"
         return 1
     fi
 
-    line_count=11
+    line_count=13
 
     while read line
     do
@@ -78,10 +83,14 @@ load_game() {
             col=${line[0]:2:1}
             val=${line[0]:4:1}
             board[${row},${col}]=$val
-        elif (( $line_count == 2 )); then
+        elif (( $line_count == 4 )); then
             circle_move=$line
-        else
+        elif (( $line_count == 3 )); then
             move_remaining=$line
+        elif (( $line_count == 2 )); then
+            single_game=$line
+        else
+            ai_turn=$line
         fi
 
         line_count=$((line_count - 1))
@@ -90,7 +99,14 @@ load_game() {
 
     sleep 1
     printf "\nSaved game Loaded\n"
-    printf "Starting the game\n\n"
+
+    if $single_game ; then
+        printf "Game mode: player vs computer"
+    else
+        printf "Game mode: player vs player"
+    fi
+
+    printf "\nStarting the game\n\n"
 
     return 0
 }
@@ -214,9 +230,24 @@ start_game() {
         if [ "$key" = "" ]; then
             break
         fi
+
+        if [ "$key" = "c" ]; then
+            rand_val=$(($RANDOM % 10))
+            single_game=true
+            if (( $rand_val > 5)) ; then
+                ai_turn=true
+            else
+                ai_turn=false
+            fi
+            break
+        fi
     done
 
-    main_game
+    if $single_game ; then
+        main_single_game
+    else
+        main_game
+    fi
 }
 
 main_game() {
@@ -237,7 +268,42 @@ main_game() {
         fi
 
         make_move ${row} ${col}
+    done
+}
 
+main_single_game() {
+    while [ ${game_over} -eq 1 ]
+    do  
+        print_board
+        row=0
+        col=0
+
+        if ${circle_move} ; then
+            printf "Nought turn.\n"
+        else 
+            printf "Cross turn.\n"
+        fi
+
+        if $ai_turn ; then 
+            row=$(($RANDOM % 3))
+            col=$(($RANDOM % 3))
+
+            if ! is_position_available ${row} ${col} ; then
+                continue
+            fi
+
+            ai_turn=false
+        else
+            read -p "Enter position (row column): " row col
+
+            if ! check_input_format ${row} ${col} || ! is_position_available ${row} ${col} ; then
+                continue
+            fi
+
+            ai_turn=true
+        fi
+
+        make_move ${row} ${col}
     done
 }
 
