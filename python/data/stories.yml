@@ -1,0 +1,159 @@
+version: "3.1"
+
+stories:
+
+- story: basic info path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: bot_purpose
+  - action: utter_bot_purpose
+  - intent: bot_possibilities
+  - action: utter_give_possible_actions
+  - intent: tournament_occurance
+  - action: utter_tournament_occurance
+  - intent: tournament_period
+  - action: utter_tournament_period
+
+- story: basic info
+  steps:
+  - intent: bot_possibilities
+  - action: utter_give_possible_actions
+  - intent: tournament_occurance
+  - action: utter_tournament_occurance
+  - intent: tournament_period
+  - action: utter_tournament_period
+
+- story: basic info
+  steps:
+  - intent: bot_possibilities
+  - action: utter_give_possible_actions
+  - intent: tournament_occurance
+  - action: utter_tournament_occurance
+  - intent: tournament_period
+  - action: utter_tournament_period
+
+- story: basic info overview
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: bot_possibilities
+  - action: utter_give_possible_actions
+  - intent: tournament_overview
+  - action: utter_tournament_overview
+
+
+- story: basic info overview
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: bot_purpose
+  - action: utter_bot_purpose
+  - intent: bot_possibilities
+  - action: utter_give_possible_actions
+  - intent: tournament_overview
+  - action: utter_tournament_overview
+
+- story: basic info affirm
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: bot_purpose
+  - action: utter_bot_purpose
+  - intent: affirm
+  - action: utter_give_possible_actions
+
+- story: basic info deny
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: bot_purpose
+  - action: utter_bot_purpose
+  - intent: deny
+  - action: utter_goodbye
+
+- story: right away sign up
+  steps:
+  - intent: ask_to_add_to_tournament
+  - action: utter_ask_if_alone
+  - intent: solo_player
+  - action: utter_participant_alone
+  - intent: affirm
+  - action: utter_participant_division
+  - intent: division_summary
+  - action: utter_participant_add
+
+
+- story: not signing up
+  steps:
+  - intent: tournamnet_conditions
+  - action: utter_conditions
+  - intent: ask_next_tournament
+  - action: utter_next_tournament_date
+  - intent: deny
+  - action: utter_goodbye
+
+- story: signing up solo
+  steps:
+  - intent: tournamnet_conditions
+  - action: utter_conditions
+  - intent: affirm
+  - action: utter_ask_if_alone
+  - intent: solo_player
+  - action: utter_participant_alone
+  - intent: affirm
+  - action: utter_participant_division
+  - intent: division_summary
+  - action: utter_participant_add
+
+- story: deny signing up solo
+  steps:
+  - intent: tournamnet_conditions
+  - action: utter_conditions
+  - intent: affirm
+  - action: utter_ask_if_alone
+  - intent: solo_player
+  - action: utter_participant_alone
+  - intent: deny
+  - action: utter_goodbye
+
+
+- story: signing up solo with the date
+  steps:
+  - intent: tournamnet_conditions
+  - action: utter_conditions
+  - intent: ask_next_tournament
+  - action: utter_next_tournament_date
+  - intent: affirm
+  - action: utter_ask_if_alone
+  - intent: solo_player
+  - action: utter_participant_alone
+  - intent: affirm
+  - action: utter_participant_division
+  - intent: division_summary
+  - action: utter_participant_add
+
+- story: signing up team with the date
+  steps:
+  - intent: tournamnet_conditions
+  - action: utter_conditions
+  - intent: ask_next_tournament
+  - action: utter_next_tournament_date
+  - intent: affirm
+  - action: utter_ask_if_alone
+  - intent: have_a_team_player
+  - action: utter_participant_summary_division
+  - intent: division_summary
+  - action: utter_participant_add
+
+- story: signing up team
+  steps:
+  - intent: tournamnet_conditions
+  - action: utter_conditions
+  - intent: affirm
+  - action: utter_ask_if_alone
+  - intent: have_a_team_player
+  - action: utter_participant_summary_division
+  - intent: division_summary
+  - action: utter_participant_add
+

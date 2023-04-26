@@ -1,0 +1,85 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_purpose
+  - bot_possibilities
+  - tournament_occurance
+  - tournament_period
+  - tournamnet_conditions
+  - tournament_overview
+  - solo_player
+  - have_a_team_player
+  - ask_next_tournament
+  - ask_to_add_to_tournament
+  - division_summary
+
+entities:
+  - name
+
+responses:
+  utter_greet:
+  - text: "Welcome. What can I do for you today?"
+  - text: "Hey! What can I do for you?"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_bot_purpose:
+  - text: "I am a simple bot and my job is to help you to get information about tournaments. Do you have any questions?"
+
+  utter_give_possible_actions:
+  - text: "I can give you information like: how often the torunament takes place, what kind of tournament it is or in the future register you for the tournament"
+
+  utter_tournament_occurance:
+  - text: "The tournament occures twice each month. The first week and the last week of the month."
+
+  utter_tournament_period:
+  - text: "Every tournament last 2 days (saturday & sunday) where 32 teams clash against each other."
+
+  utter_tournament_overview:
+  - text: "Tournament is divided into 2 separate groups: Low (iron-platinum) and High (diamond-challenger).\nFirst day all teams try to qualify for the main tournament. After first day 32 teams (for each Low and High) are selected.\nThe second day 32 teams are fighting against each other in bracket system (16 on the one side and 16 teams on the other side)."
+
+  utter_ask_if_alone:
+  - text: "Are you alone or do you have a team?"
+
+  utter_conditions:
+  - text: "You can join the tournament solo or with team. But you have to have a division in a game. Do you want to join the next tournament?"
+
+  utter_participant_alone:
+  - text: "Because you do not have friends to play with you can be put in random team that lacks players. Do you wish to be added to upcomming tournament as a solo player?"
+
+  utter_participant_summary_division:
+  - text: "What summary division do your team have?"
+
+  utter_participant_division:
+  - text: "What is your division?"
+
+  utter_participant_summary_division_info:
+  - text: "Summary division is average division of whole team."
+
+  utter_participant_summary_division_calculate_info:
+  - text: "To calculate summary division, assume that iron is 0 points and challenger is 8 points. Now add divisions of all members and divide it by its number."
+
+  utter_next_tournament_date:
+  - text: "The next tournament starts 28.04. Do you want to sign up?"
+
+  utter_participant_add:
+  - text: "Sorry but for now I can't register you."
+
+slots:
+  name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: name
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

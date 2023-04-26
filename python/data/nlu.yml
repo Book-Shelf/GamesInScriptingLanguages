@@ -1,0 +1,124 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: bot_purpose
+  examples: |
+    - what are you?
+    - what is your purpose?
+    - how can you help me?
+
+- intent: bot_possibilities
+  examples: |
+    - what can you do?
+    - can you help me?
+    - how can you help me?
+
+- intent: tournament_occurance
+  examples: |
+    - how often the tournament is talking place?
+
+- intent: tournament_period
+  examples: |
+    - how many days the tournament last for?
+    - how long is the tournament?
+
+- intent: tournamnet_conditions
+  examples: |
+    - what conditions I have to met to join the tournament?
+    - what I have to do to join the tournament?
+    - can I join the tournament?
+
+- intent: tournament_overview
+  examples: |
+    - how the tournament looks like?
+    - what happens during these two days?
+    - what happens during the tournament?
+    - what kind of tournament is this?
+
+- intent: solo_player
+  examples: |
+    - solo
+    - I am solo
+    - I'm alone
+    - I don't have a team
+
+- intent: have_a_team_player
+  examples: |
+    - I have a team
+    - team
+    - I have a group
+
+- intent: ask_next_tournament
+  examples: |
+    - when is the next tournament?
+    - what is the date of the next tournament?
+    - when is it?
+
+- intent: ask_to_add_to_tournament
+  examples: |
+    - I want to register to the next tournament
+    - I want to take part in the next tournament
+    - I want to sign up for the next tournament
+    - can you add me to the tournament?
+    - can you sign me up to the next tournament?
+    - can you sign me up to the tournament?
+
+- intent: division_summary
+  examples: |
+    - bronze
+    - iron
+    - silver
+    - gold
+    - platinum
+    - diamond
+    - master
+    - grand master
+    - challenger
